@@ -20,6 +20,9 @@ public:
             }
         }
         
+        int drow[] = {-1,0,1,0};
+        int dcol[] = {0,1,0,-1};
+        
         int t=0;
             
         while(!bfs.empty()){
@@ -28,17 +31,15 @@ public:
             int tm = bfs.front().second;
             bfs.pop();
             t=max(t,tm);
-            for(int delrow=-1;delrow<=1;delrow++){
-                for(int delcol=-1;delcol<=1;delcol++){
-                    int nrow = srow + delrow;
-                    int ncol = scol + delcol;
-                    if((nrow==srow || ncol==scol) && nrow>=0 && nrow<m &&
-                      ncol>=0 && ncol<n && !vis[nrow][ncol] && grid[nrow][ncol]==1){
-                        rotten++;
-                        vis[nrow][ncol]=1;
-                        grid[nrow][ncol]=2;
-                        bfs.push({{nrow,ncol},t+1});
-                    }
+            for(int i=0;i<4;i++){
+                int nrow = srow + drow[i];
+                int ncol = scol + dcol[i];
+                if(nrow>=0 && nrow<m && ncol>=0 && ncol<n && !vis[nrow][ncol]
+                   && grid[nrow][ncol]==1){
+                    rotten++;
+                    vis[nrow][ncol]=1;
+                    grid[nrow][ncol]=2;
+                    bfs.push({{nrow,ncol},t+1});
                 }
             }
         }
