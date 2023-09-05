@@ -7,9 +7,9 @@ public:
         }
         else{
             for(int i=k;i<n;i++){
-                swap(nums[i],nums[k]);
+                swap(nums[k],nums[i]);
                 perm(nums,k+1,n,ans);
-                swap(nums[i],nums[k]);
+                swap(nums[k],nums[i]);
             }
         }
         return;
