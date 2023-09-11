@@ -5,12 +5,10 @@ public:
             ans.push_back(nums);
             return;
         }
-        else{
-            for(int i=k;i<n;i++){
-                swap(nums[k],nums[i]);
-                perm(nums,k+1,n,ans);
-                swap(nums[k],nums[i]);
-            }
+        for(int i=k;i<n;i++){
+            swap(nums[k],nums[i]);
+            perm(nums,k+1,n,ans);
+            swap(nums[k],nums[i]);
         }
         return;
     }
