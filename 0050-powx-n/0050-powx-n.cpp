@@ -21,7 +21,10 @@ public:
         double ans;
         long y = n;
         if(x<0 && n%2==0) x=-x;
-        if(n<0) ans = pow(1/x,-y);
+        if(n<0){
+            ans = pow(x,-y);
+            return 1/ans;
+        }
         if(n>=0) ans = pow(x,y);
         return ans;
     }
