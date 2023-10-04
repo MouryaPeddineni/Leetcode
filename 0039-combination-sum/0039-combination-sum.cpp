@@ -1,11 +1,13 @@
 class Solution {
 public:
     void comb(vector<vector<int>>& ans,vector<int>& sub,vector<int>& candidates,int i,int target,int sum){
-        if(sum==target){
-            ans.push_back(sub);
+        if(sum>=target){
+            if(sum==target){
+                ans.push_back(sub);
+            }
             return;
         }
-        if(sum>target || i>=candidates.size()) return;
+        if(i==candidates.size()) return;
         sub.push_back(candidates[i]);
         sum+=candidates[i];
         comb(ans,sub,candidates,i,target,sum);
