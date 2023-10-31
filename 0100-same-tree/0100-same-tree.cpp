@@ -10,27 +10,25 @@
  * };
  */
 class Solution {
-void tree(TreeNode* root,vector<int> &v){
-    if(root==NULL) 
-    {
-        v.push_back(INT_MAX);
-        return;
+public:
+    bool traverse(TreeNode* p,TreeNode* q){
+        if(p==NULL || q==NULL){
+            if(p==NULL && q==NULL){
+                return true;
+            }
+            return false;
+        }
+        if(p->val!=q->val){
+            return false;
+        }
+        bool a=traverse(p->left,q->left);
+        bool b=traverse(p->right,q->right);
+        return a&&b;
     }
-    v.push_back(root->val);
-    tree(root->left,v);
-    tree(root->right,v);
-    return;
-}
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        vector<int> res1;
-        vector<int> res2;
-        tree(p,res1);
-        tree(q,res2);
-        if(res1.size()!=res2.size()) return false;
-        for(int i=0;i<res1.size();i++){
-            if(res1[i]!=res2[i]) return false;
-        }
-        return true;
+        bool res;
+        res=traverse(p,q);
+        return res;
     }
 };
