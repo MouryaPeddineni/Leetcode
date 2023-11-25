@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void combSum(int ind,int target,int n,vector<int> candidates,vector<int>& ds,vector<vector<int>>& ans){
+    void combSum(int ind,int target,int n,vector<int>& candidates,vector<int>& ds,vector<vector<int>>& ans){
         if(target==0){
             ans.push_back(ds);
             return;
