@@ -15,8 +15,7 @@ public:
                 int left = grid[i][j];
                 if(j>0) left+= dp[i][j-1];
                 else{ 
-                    if(i==0 && j==0) left=left;
-                    else left+=1e8;
+                    if(!(i==0 && j==0)) left+=1e8;
                 }
                 // cout << up << " " << left << endl;
                 // if(i==0 && j==1) break;
