@@ -1,11 +1,11 @@
 class Solution {
 public:
-    long minSum(int i,int j,vector<vector<int>>& grid,vector<vector<int>>& dp){
+    int minSum(int i,int j,vector<vector<int>>& grid,vector<vector<int>>& dp){
         if(i==0 && j==0) return grid[i][j];
-        if(i<0 || j<0) return INT_MAX;
+        if(i<0 || j<0) return 1e8;
         if(dp[i][j]!=-1) return dp[i][j];
-        long up = grid[i][j] + minSum(i-1,j,grid,dp);
-        long left = grid[i][j] + minSum(i,j-1,grid,dp);
+        int up = grid[i][j] + minSum(i-1,j,grid,dp);
+        int left = grid[i][j] + minSum(i,j-1,grid,dp);
         return dp[i][j] = min(up,left);
     }
 public:
