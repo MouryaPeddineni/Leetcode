@@ -1,28 +1,32 @@
 class Solution {
 public:
-    bool canBePartitioned(int ind, int sum, int n, int target, vector<int> &nums, vector<vector<int>> &dp){
-        if(ind == n){
-            if(sum == target) return true;
-            return false;
-        }
-        if(sum == target) return true;
-        if(sum > target) return false;
-        if(dp[ind][sum]!=-1) return dp[ind][sum];
-        bool notPick = canBePartitioned(ind+1, sum, n, target, nums, dp);
-        bool pick = false;
-        if(sum+nums[ind]<=target) pick = canBePartitioned(ind+1, sum+nums[ind], n, target, nums, dp);
-        return dp[ind][sum] = pick | notPick;
-    }
-
-public:
     bool canPartition(vector<int>& nums) {
         int n = nums.size();
+        if(n==1) return false;
         int totalSum = 0;
         for(int i=0;i<n;i++){
             totalSum += nums[i];
         }
-        vector<vector<int>> dp(n, vector<int> ((totalSum/2)+1, -1));
-        if(totalSum%2==0) return canBePartitioned(0,0,n,totalSum/2,nums,dp);
-        else return false;
+        if(totalSum%2!=0) return false;
+        int k = totalSum/2;
+        vector<bool> prev(k+1,0), cur(k+1,0);
+        //ind -> 0 to n && k varies from k to 0
+        //base cases
+        for(int ind=0;ind<n;ind++){
+            prev[0] = cur[0] = true;
+        }
+        if(nums[0]<=totalSum/2) prev[nums[0]] = true;
+        //recursive cases
+        for(int ind=1;ind<n;ind++){
+            for(int target=1;target<=k;target++){
+                bool nottake = prev[target];
+                bool take = false;
+                if(nums[ind]<=target) take = prev[target-nums[ind]];
+                cur[target] = take | nottake;
+            }
+            prev = cur;
+        }
+
+        return prev[k];
     }
 };
