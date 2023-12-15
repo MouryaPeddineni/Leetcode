@@ -1,7 +1,8 @@
 class Solution {
 public:
     int f(int i,int target,vector<int>& coins,vector<vector<int>>& dp){
-        if(target <= 0) return 0;
+        if(target==0) return 0;
+        if(target < 0) return 1e8;
         if(i==0){
             if(target%coins[0]==0) return target/coins[0];
             else return 1e8;
@@ -19,5 +20,13 @@ public:
         int ans = f(n-1,amount,coins,dp);
         if(ans>=1e8) return -1;
         return ans;
+        // for(int i=0;i<n;i++){
+        //     dp[i][0] = 0;
+        // }
+        // for(int t=0;t<=target;t++){
+        //     if(t%coins[0]==0) dp[i][target] = t/coins[0];
+        //     else dp[i][j] = 1e8;
+        // }
+        
     }
 };
