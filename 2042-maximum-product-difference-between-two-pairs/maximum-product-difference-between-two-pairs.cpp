@@ -25,7 +25,6 @@ public:
                 secondMini = nums[i];
             }
         }
-        cout << largestIndex << "->" << maxi << " " << smallestIndex <<"->" << mini << endl;
         return maxi*secondMaxi - mini*secondMini;
     }
 };
