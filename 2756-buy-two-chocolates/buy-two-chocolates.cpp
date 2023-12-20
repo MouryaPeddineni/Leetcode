@@ -1,7 +1,17 @@
 class Solution {
 public:
     int buyChoco(vector<int>& prices, int money) {
-        sort(prices.begin(),prices.end());
-        return (prices[0]+prices[1]<=money)?(money-(prices[1]+prices[0])):money;
+        int n = prices.size();
+        int sm = prices[0], ss = 1e8;
+        for(int i=1;i<n;i++){
+            if(prices[i]<sm){
+                ss = sm;
+                sm = prices[i];
+            }
+            else if(prices[i]<ss){
+                ss = prices[i];
+            }
+        }
+        return (ss+sm<=money)?money-(ss+sm):money;
     }
 };
