@@ -16,17 +16,19 @@ class Solution {
 public:
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
-        vector<vector<int>> dp(n, vector<int> (amount+1, 0));
+        // vector<vector<int>> dp(n, vector<int> (amount+1, 0));
+        vector<int> prev(amount+1, 0), cur(amount+1, 0);
         for(int i=0;i<=amount;i++){
-            if(i%coins[0]==0) dp[0][i] = 1;
+            if(i%coins[0]==0) prev[i] = 1;
         }
         for(int i=1;i<n;i++){
             for(int j=0;j<=amount;j++){
                 int pick = 0;
-                if(coins[i]<=j) pick = dp[i][j-coins[i]];
-                int notpick = dp[i-1][j];
-                dp[i][j] = pick + notpick;
+                if(coins[i]<=j) pick = cur[j-coins[i]];
+                int notpick = prev[j];
+                cur[j] = pick + notpick;
             }
+            prev = cur;
         }
 
         // for(int i=0;i<n;i++){
@@ -36,6 +38,6 @@ public:
         //     cout << endl;
         // }
         // return f(n-1, amount, coins, dp);
-        return dp[n-1][amount];
+        return prev[amount];
     }
 };
