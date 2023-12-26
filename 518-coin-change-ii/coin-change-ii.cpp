@@ -16,7 +16,7 @@ public:
 public:
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
-        vector<vector<int>> dp(n+1, vector<int> (amount+1, -1));
+        vector<vector<int>> dp(n, vector<int> (amount+1, -1));
         return f(n-1, amount, coins, dp);
     }
 };
