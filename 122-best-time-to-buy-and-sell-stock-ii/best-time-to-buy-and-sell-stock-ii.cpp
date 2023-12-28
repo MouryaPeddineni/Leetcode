@@ -1,25 +1,25 @@
 class Solution {
 public:
-    int ans(int i,int canBuy,int n,vector<int>& prices,vector<vector<int>>& dp){
-        if(i==n){
-            return 0;
+    int maxProfit(vector<int>& values) {
+        int n = values.size();
+        vector<vector<long>> dp(n+1, vector<long> (2,0));
+        dp[n][0] = dp[n][1] = 0;
+        for(int i=n-1;i>=0;i--){
+            for(int j = 0;j<=1;j++){
+                long profit = 0;
+                if(j==1){
+                    long buys = -values[i] + dp[i+1][0];
+                    long notbuys = dp[i+1][1];
+                    profit = max(buys,notbuys);
+                }
+                else{
+                    long sells = values[i] + dp[i+1][1];
+                    long notsells = dp[i+1][0];
+                    profit = max(sells,notsells);
+                }
+                dp[i][j] = profit;
+            }
         }
-        int profit = 0;
-        if(dp[i][canBuy]!=-1) return dp[i][canBuy];
-        if(canBuy){
-            profit = max(-prices[i] + ans(i+1,0,n,prices,dp),
-                            0 + ans(i+1,1,n,prices,dp));
-        }
-        else{
-            profit = max(prices[i] + ans(i+1,1,n,prices,dp),
-                            0 + ans(i+1,0,n,prices,dp));
-        }
-        return dp[i][canBuy] = profit;
-    }
-public:
-    int maxProfit(vector<int>& prices) {
-        int n = prices.size();
-        vector<vector<int>> dp(n, vector<int> (2,-1));
-        return ans(0,1,n,prices,dp);
+        return dp[0][1];
     }
 };
