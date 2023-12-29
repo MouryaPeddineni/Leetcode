@@ -16,7 +16,6 @@ public:
         int n = s.size();
         string t = s;
         reverse(t.begin(), t.end());
-        // vector<vector<int>> dp(n, vector<int> ());
         int l = lps(s,t);
         return n-l;
     }
