@@ -12,7 +12,6 @@ public:
                 i++;j++;
             }
             else if(g[i]>s[i]) j++;
-            else i++;
         }
         return ans;
     }
