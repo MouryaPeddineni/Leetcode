@@ -11,7 +11,8 @@ public:
                 ans++;
                 i++;j++;
             }
-            else j++;
+            else if(g[i]>s[i]) j++;
+            else i++;
         }
         return ans;
     }
