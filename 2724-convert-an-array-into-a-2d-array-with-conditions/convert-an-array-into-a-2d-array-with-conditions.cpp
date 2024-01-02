@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>> findMatrix(vector<int>& nums) {
-        map<int,int> mpp;
+        unordered_map<int,int> mpp;
         int maxi = 0;
         for(int i:nums){
             mpp[i]++;
