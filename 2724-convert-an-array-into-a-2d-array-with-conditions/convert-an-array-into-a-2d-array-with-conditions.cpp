@@ -8,9 +8,6 @@ public:
             maxi = max(maxi, mpp[i]);
         }
         vector<vector<int>> ans;
-        // for(auto it:mpp){
-        //     cout << it.first << " " << it.second << endl;
-        // }
         for(int i=0;i<maxi;i++){
             vector<int> sub;
             for(auto it:mpp){
