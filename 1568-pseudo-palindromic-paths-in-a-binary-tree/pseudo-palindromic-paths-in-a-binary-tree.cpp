@@ -21,8 +21,7 @@ public:
             for(auto it:mpp){
                 if(it.second%2!=0) odds++;
             }
-            if(odds==1) return 1;
-            if(odds==0) return 1;
+            if(odds==0 || odds==1) return 1;
             return 0;
         }
         mpp[node->val]++;
