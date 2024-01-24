@@ -19,12 +19,8 @@ public:
             mpp[node->val]++;
             int odds = 0;
             for(auto it:mpp){
-                // cout << it.first << " " << it.second << "\n";
-                // sum+=it.second;
                 if(it.second%2!=0) odds++;
             }
-            cout << "\n";
-            // mpp[node->val]--;
             if(odds==1) return 1;
             if(odds==0) return 1;
             return 0;
