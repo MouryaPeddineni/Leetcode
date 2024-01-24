@@ -12,15 +12,11 @@
 class Solution {
 public:
     int pseudo(TreeNode* node, map<int,int> &mpp){
-        if(node==nullptr){
-            return 0;
-        }
+        if(node==nullptr) return 0;
         if(node->left==nullptr && node->right==nullptr){
             mpp[node->val]++;
             int odds = 0;
-            for(auto it:mpp){
-                if(it.second%2!=0) odds++;
-            }
+            for(auto it:mpp) if(it.second%2!=0) odds++;
             if(odds==0 || odds==1) return 1;
             return 0;
         }
