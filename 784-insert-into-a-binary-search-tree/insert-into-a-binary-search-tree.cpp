@@ -18,14 +18,6 @@ public:
             root = newnode;
             return root;
         }
-        if(root->left==nullptr && root->right==nullptr){
-            if(val < root->val){
-                root->left = newnode;
-            }
-            else{
-                root->right = newnode;
-            }
-        }
         TreeNode* pre = root;
         while(root!=nullptr){
             if(val < root->val){
