@@ -2,7 +2,7 @@ class Solution {
 public:
     int maxFrequencyElements(vector<int>& nums) {
         int ans = 0, maxi = 0;
-        map<int, int> mpp;
+        unordered_map<int, int> mpp;
         for(int i:nums){
             mpp[i]++;
             maxi = max(maxi, mpp[i]);
