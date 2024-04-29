@@ -3,7 +3,7 @@
  */
 var createHelloWorld = function() {
     
-    return function() {
+    return function(...args) {
         return "Hello World";
     }
 };
