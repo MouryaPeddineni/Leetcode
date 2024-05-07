@@ -9,38 +9,30 @@
  * };
  */
 class Solution {
-public:    
+public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* head = new ListNode((l1->val + l2->val)%10);
-        ListNode* curr = head;
+        ListNode* dummyHead = new ListNode(0);
+        ListNode* tail = dummyHead;
         int carry = 0;
-        if(l1->val + l2->val > 9) carry = 1;
-        l1 = l1->next, l2 = l2->next;
-        while((l1 != nullptr && l2 != nullptr)){
-            ListNode* node = new ListNode((l1->val+l2->val+carry)%10);
-            if(l1->val + l2->val + carry > 9) carry = 1;
-            else carry = 0;
-            l1 = l1->next, l2 = l2->next;
-            curr->next = node;
-            curr = node;
+
+        while (l1 != nullptr || l2 != nullptr || carry != 0) {
+            int digit1 = (l1 != nullptr) ? l1->val : 0;
+            int digit2 = (l2 != nullptr) ? l2->val : 0;
+
+            int sum = digit1 + digit2 + carry;
+            int digit = sum % 10;
+            carry = sum / 10;
+
+            ListNode* newNode = new ListNode(digit);
+            tail->next = newNode;
+            tail = tail->next;
+
+            l1 = (l1 != nullptr) ? l1->next : nullptr;
+            l2 = (l2 != nullptr) ? l2->next : nullptr;
         }
-        while(l1!=nullptr){
-            ListNode* node = new ListNode((l1->val+carry)%10);
-            if(l1->val + carry > 9) carry = 1;
-            else carry = 0;
-            curr->next = node;
-            curr = node;
-            l1 = l1->next;
-        }
-        while(l2!=nullptr){
-            ListNode* node = new ListNode((l2->val+carry)%10);
-            if(l2->val + carry > 9) carry = 1;
-            else carry = 0;
-            curr->next = node;
-            curr = node;
-            l2 = l2->next;
-        }
-        if(carry == 1) curr->next = new ListNode(1);
-        return head;
+
+        ListNode* result = dummyHead->next;
+        delete dummyHead;
+        return result;
     }
 };
