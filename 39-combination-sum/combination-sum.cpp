@@ -1,27 +1,25 @@
 class Solution {
 public:
-    void comb(vector<vector<int>>& ans,vector<int>& sub,vector<int>& candidates,int i,int target,int sum){
-        if(sum>=target){
-            if(sum==target){
-                ans.push_back(sub);
-            }
+    void comb(int i, vector<int> sub, vector<vector<int>> &ans, vector<int> &c, int target){
+        if(target < 0) return;
+        if(i==-1){
+            if(target==0) ans.push_back(sub);
             return;
         }
-        if(i==candidates.size()) return;
-        sub.push_back(candidates[i]);
-        sum+=candidates[i];
-        comb(ans,sub,candidates,i,target,sum);
-        sum-=candidates[i];
+        //pick
+        sub.push_back(c[i]);
+        comb(i, sub, ans, c, target-c[i]);
+        //not pick
         sub.pop_back();
-        comb(ans,sub,candidates,i+1,target,sum);
+        comb(i-1, sub, ans, c, target);
         return;
     }
 public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        int sum=0,i=0;
         vector<vector<int>> ans;
         vector<int> sub;
-        comb(ans,sub,candidates,i,target,sum);
+        int n = candidates.size();
+        comb(n-1, sub, ans, candidates, target);
         return ans;
     }
 };
