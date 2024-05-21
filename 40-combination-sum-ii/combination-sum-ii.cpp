@@ -1,27 +1,26 @@
 class Solution {
 public:
-    void combSum(int ind,int target,int n,vector<int> candidates,vector<int>& ds,vector<vector<int>>& ans){
-        if(target==0){
-            ans.push_back(ds);
+    void comb(int i, vector<int> sub, vector<vector<int>> &ans, vector<int> candidates, int t){
+        if(t == 0){
+            ans.push_back(sub);
             return;
         }
-        if(target<0) return;
-        for(int i=ind;i<n;i++){
-            if(i>ind && candidates[i]==candidates[i-1]) continue;
-            if(candidates[i]>target) break;
-            ds.push_back(candidates[i]);
-            combSum(i+1,target-candidates[i],n,candidates,ds,ans);
-            ds.pop_back();
+        if(i == candidates.size()) return;
+        if(t < candidates[i]) return;
+        for(int ind=i;ind<candidates.size();ind++){
+            if(ind>i && candidates[ind-1]==candidates[ind]) continue;
+            sub.push_back(candidates[ind]);
+            comb(ind+1, sub, ans, candidates, t-candidates[ind]);
+            sub.pop_back();
         }
         return;
     }
 public:
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         vector<vector<int>> ans;
-        sort(candidates.begin(),candidates.end());
-        int n = candidates.size();
-        vector<int> ds;
-        combSum(0,target,n,candidates,ds,ans);
+        vector<int> sub;
+        sort(candidates.begin(), candidates.end());
+        comb(0, sub, ans, candidates, target);
         return ans;
     }
 };
