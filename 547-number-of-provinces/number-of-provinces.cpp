@@ -1,33 +1,43 @@
 class Solution {
-private:
-    void dfsTraversal(int node,int vis[],vector<int> adj[]){
-        vis[node]=1;
-        for(auto it:adj[node]){
-            if(!vis[it]){
-                dfsTraversal(it,vis,adj);
+public:
+    void dfs(int node, int vis[], vector<int> adj[]) {
+        vis[node] = 1;
+        for(auto it:adj[node]) {
+            if(!vis[it]) {
+                dfs(it, vis, adj);
             }
         }
+        return;
     }
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
         int n = isConnected.size();
         vector<int> adj[n+1];
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(i!=j && isConnected[i][j]==1){
-                    adj[i+1].push_back(j+1);
-                }
-            }
-        }
         int vis[n+1];
-        fill_n(vis,n+1,0);
-        int count = 0;
-        for(int i=1;i<n+1;i++){
-            if(!vis[i]){
-                count++;
-                dfsTraversal(i,vis,adj);
+        for(int i=0;i<=n;i++){
+            vis[i] = 0;
+        }
+        int ans = 0;
+
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                if(isConnected[i][j]==1) adj[i+1].push_back(j+1);
             }
         }
-        return count;
+
+        for(int i=1;i<=n;i++) {
+            if(!vis[i]) {
+                dfs(i, vis, adj);
+                ans++;
+            }
+        }
+        // for(int i=0;i<=n;i++){
+        //     cout << i << "->";
+        //     for(auto it:adj[i]){
+        //         cout << it << " ";
+        //     }
+        //     cout << "\n";
+        // }
+        return ans;
     }
 };
