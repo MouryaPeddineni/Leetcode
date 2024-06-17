@@ -22,19 +22,19 @@ public:
         vector<vector<int>> vis(n, vector<int> (m, 0));
 
         for(int i=0;i<m;i++) {
-            if(board[0][i]=='O'){
+            if(board[0][i]=='O' && !vis[0][i]){
                 dfs(0, i, board, vis);
             }
-            if(board[n-1][i]=='O'){
+            if(board[n-1][i]=='O' && !vis[n-1][i]){
                 dfs(n-1, i, board, vis);
             }
         }
 
         for(int j=0;j<n;j++) {
-            if(board[j][0]=='O'){
+            if(board[j][0]=='O' && !vis[j][0]){
                 dfs(j, 0, board, vis);
             }
-            if(board[j][m-1]=='O') {
+            if(board[j][m-1]=='O' && !vis[j][m-1]) {
                 dfs(j, m-1, board, vis);
             }
         }
