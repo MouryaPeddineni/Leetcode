@@ -1,23 +1,26 @@
 class Solution {
 public:
-    bool dfs(int i, vector<vector<int>>& graph, vector<int>& ans, vector<int>& vis, vector<int>& visPath, vector<int>& check) {
+    bool dfs(int i, vector<vector<int>>& graph, vector<int>& ans, vector<int>& vis, vector<int>& visPath) {
         vis[i] = 1;
         visPath[i] = 1;
-        check[i] = 0;
+
         for(auto it:graph[i]) {
-            if(!vis[it]) {
-                if(dfs(it, graph, ans, vis, visPath, check)==true) {
-                    check[i] = 0;
+            if(vis[it] == 0) {
+                if(dfs(it, graph, ans, vis, visPath)==true) {
+                    vis[it] = 2;
                     return true;
                 }
             }
             else if(visPath[it]) {
-                check[i] = 0;
+                for(int i=0;i<visPath.size();i++){
+                    if(visPath[i]==1) {
+                        vis[i] = 2;
+                    }
+                }
                 return true;
             }
         }
 
-        check[i] = 1;
         visPath[i] = 0;
         return false;
     }
@@ -28,16 +31,15 @@ public:
         vector<int> ans;
         vector<int> vis(n, 0);
         vector<int> visPath(n, 0);
-        vector<int> check(n, 0);
 
         for (int i = 0; i < n; i++) {
-            if (!vis[i]) {
-                dfs(i, graph, ans, vis, visPath, check);
+            if (vis[i]==0) {
+                dfs(i, graph, ans, vis, visPath);
             }
         }
 
         for(int i=0;i<n;i++) {
-            if(check[i] == 1) ans.push_back(i);
+            if(vis[i] != 2) ans.push_back(i);
         }
 
         return ans;
