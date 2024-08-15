@@ -9,7 +9,7 @@ public class Solution {
     // step 1. reverse the whole string
     reverse(a, 0, n - 1);
     // step 2. reverse each word
-    System.out.println("\'" + new String(a) + "\'");
+    // System.out.println("\'" + new String(a) + "\'");
     reverseWords(a, n);
     // step 3. clean up spaces
     return cleanSpaces(a, n);
@@ -19,9 +19,10 @@ public class Solution {
     int i = 0, j = 0;
       
     while (i < n) {
-      while (i < j || (i < n && a[i] == ' ')) i++; // skip spaces
-      while (j < i || (j < n && a[j] != ' ')) j++; // skip non spaces
-      System.out.println(i + " " + j);
+      while (i < j || i < n && a[i] == ' ') i++; // skip spaces // precedence of && is higher than ||
+      // hence (i < j || (i < n && a[i] == ' ')) would be the interpreted !
+      while (j < i || j < n && a[j] != ' ') j++; // skip non spaces
+    //   System.out.println(i + " " + j);
       reverse(a, i, j - 1);                      // reverse the word
     }
   }
