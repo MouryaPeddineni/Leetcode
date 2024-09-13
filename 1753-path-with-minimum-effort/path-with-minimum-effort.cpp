@@ -13,12 +13,9 @@ public:
             pq.pop();
             int d = t.first;
             int r = t.second.first, c = t.second.second;
+            if(r == n-1 && c == m-1) return d;
             for(int i=0;i<4;i++) {
                 int newr = r+drow[i], newc = c+dcol[i];
-                if(newr==n-1 && newc==m-1) {
-                    if(pq.top().first >= max(abs(heights[r][c]-heights[newr][newc]), d)) 
-                        return max(abs(heights[r][c]-heights[newr][newc]), d);
-                }
                 if(newr>=0 && newr<n && newc>=0 && newc<m) {
                     int newEffort = max(abs(heights[r][c]-heights[newr][newc]), d);
                     if(newEffort<dist[newr][newc]) {
