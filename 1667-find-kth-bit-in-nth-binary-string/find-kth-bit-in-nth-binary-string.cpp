@@ -1,22 +1,27 @@
 class Solution {
+public: 
+    void kthBit(int i, string &sub, int n) {
+        if(i == n) return;
+        if(i == 0) {
+            sub += "0";
+            kthBit(i+1, sub, n);
+            return;
+        }
+        sub += "1";
+        int j = sub.size()-1;
+        while(j!=0) {
+            j--;
+            if(sub[j]=='0') sub+='1';
+            else sub+='0';
+        }
+        kthBit(i+1, sub, n);
+        return;
+    }
 public:
     char findKthBit(int n, int k) {
-        // Base case: When n = 1, the binary string is "0"
-        if (n == 1) return '0';
-        
-        // Find the length of the current string Sn, which is 2^n - 1
-        int length = (1 << n) - 1;
-        
-        // Find the middle position
-        int mid = length / 2 + 1;
-        
-        // If k is the middle position, return '1'
-        if (k == mid) return '1';
-        
-        // If k is in the first half, find the bit in Sn-1
-        if (k < mid) return findKthBit(n - 1, k);
-        
-        // If k is in the second half, find the bit in Sn-1 and invert it
-        return findKthBit(n - 1, length - k + 1) == '0' ? '1' : '0';
+        string sub = "";
+        kthBit(0, sub, n);
+        // cout << sub << " ";
+        return sub[k-1];
     }
 };
