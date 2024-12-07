@@ -1,42 +1,44 @@
 class Solution {
 public:
-    void merge(vector<int>& nums,int low,int mid,int high){
-        int i=low,j=mid+1;
-        vector<int> vec;
-        while(i<=mid && j<=high){
-            if(nums[i]<=nums[j]){
-                vec.push_back(nums[i]);
-                i++;
+    void merge(vector<int> &nums, int low, int mid, int high) {
+        int starti = low, startj = mid;
+        vector<int> ans;
+        while(starti < mid && startj <= high) {
+            if(nums[starti] <= nums[startj]) {
+                ans.push_back(nums[starti]);
+                starti++;
             }
-            else{
-                vec.push_back(nums[j]);
-                j++;
+            else {
+                ans.push_back(nums[startj]);
+                startj++;
             }
         }
-        while(i<=mid){
-            vec.push_back(nums[i]);
+        while(starti < mid) {
+            ans.push_back(nums[starti]);
+            starti++;
+        }
+        while(startj <= high) {
+            ans.push_back(nums[startj]);
+            startj++;
+        }
+        int i = 0;
+        while(low <= high) {
+            nums[low] = ans[i];
             i++;
+            low++;
         }
-        while(j<=high){
-            vec.push_back(nums[j]);
-            j++;
-        }
-        for(int i=low;i<=high;i++){
-            nums[i]=vec[i-low];
-        }
-    }
-public:
-    void mergeSort(vector<int>& nums,int low,int high){
-        if(low==high) return;
-        int mid=(low+high)/2;
-        mergeSort(nums,low,mid);
-        mergeSort(nums,mid+1,high);
-        merge(nums,low,mid,high);
         return;
     }
-public:
+    void mergeSort(vector<int> &nums, int low, int high) {
+        if(low == high) return;
+        int mid = low + (high - low)/2;
+        mergeSort(nums, low, mid);
+        mergeSort(nums, mid+1, high);
+        merge(nums, low, mid+1, high);
+    }
     vector<int> sortArray(vector<int>& nums) {
-        mergeSort(nums,0,nums.size()-1);
+        int n = nums.size();
+        mergeSort(nums, 0, n-1);
         return nums;
     }
 };
