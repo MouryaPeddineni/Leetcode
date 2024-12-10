@@ -13,7 +13,7 @@ public:
                 else break;
             }
         }
-        map<string, int> mpp;
+        unordered_map<string, int> mpp;
         for(string sin:sub) {
             mpp[sin]++;
         }
@@ -21,7 +21,6 @@ public:
         for(auto it:mpp) {
             string fir = it.first;
             int sz = fir.size();
-            // cout << sz;
             if(it.second >= 3) ans = max(ans, sz);
         }
         return ans;
